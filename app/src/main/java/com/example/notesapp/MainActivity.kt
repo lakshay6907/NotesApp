@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.data.Notes
 import com.example.notesapp.data.NotesDao
 import com.example.notesapp.databinding.ActivityMainBinding
+import com.example.notesapp.databinding.ItemNoteBinding
 import com.example.notesapp.model.NotesViewModel
 
 
@@ -19,17 +20,22 @@ class MainActivity : AppCompatActivity(), NotesRVAdapter {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rvNotes)
+        //setContentView(R.layout.activity_main)
+
+        val recyclerView = binding.rvNotes
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = NotesAdapter(this, this)
+        recyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application), ).get(NotesViewModel::class.java)
 
         viewModel.allnotes.observe(this, Observer{list->
            list?.let {
-               adapter.updateList(list)
+               adapter.updateList(it)
            }
         })
     }

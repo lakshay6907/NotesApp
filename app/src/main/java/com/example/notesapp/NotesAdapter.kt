@@ -15,8 +15,8 @@ class NotesAdapter(private val context: Context, private val listener: NotesRVAd
     val allNotes =  ArrayList<Notes>()
 
     inner class NotesViewHolder(view: View):RecyclerView.ViewHolder(view){
-        val textView = view.findViewById<TextView>(R.id.text)!!
-        val deleteButton = view.findViewById<ImageView>(R.id.deleteButton)!!
+        val textView = view.findViewById<TextView>(R.id.text)
+        val deleteButton = view.findViewById<ImageView>(R.id.deleteButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
